@@ -6,7 +6,6 @@ import Link from 'next/link'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
-import { redirect } from 'next/navigation'
 
 function LoginPage() {
 
@@ -43,10 +42,10 @@ function LoginPage() {
   return (
     <div>
        <Navbar/>
-       <div className='container mx-auto py-5'>
-        <h3>Register Page</h3>
+       <div className="min-h-screen flex flex-col items-center ">
+        <h3 className='flex mx-auto mt-10 text-2xl'>Login Page</h3>
         <hr className='my-3'/>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className='flex flex-col items-center gap-3'> 
 
           {error && (
                 <div className='bg-red-500 w-fit text-sm text-white py-1 px-3 rounded-md mt-2'>

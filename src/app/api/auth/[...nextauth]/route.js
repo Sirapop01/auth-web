@@ -7,46 +7,53 @@ import bcrypt from 'bcryptjs'
 
 
 const authOptions = {
-    providers: [
-        CredentialsProvider({
-          name: 'credentials',
+  providers: [
+    CredentialsProvider({
+      name: 'credentials',
+      credentials: {},
+      async authorize(credentials, req) {
+        const { email, password } = credentials;
 
-          credentials: {},
-          async authorize(credentials, req) {
+        try {
+          await connectMongoDB();
+          const user = await User.findOne({ email });
 
-            const {email,password } = credentials;
+          if (!user) return null;
 
-            try{
-                await connectMongoDB();
-                const user = await User.findOne({email});
+          const passwordMatch = await bcrypt.compare(password, user.password);
+          if (!passwordMatch) return null;
 
-                if(!user){
-                    return null;
-                }
+          return user;
 
-                const passwordMatch = await bcrypt.compare(password, user.password);
-
-                if(!passwordMatch){
-                    return null;
-                }
-
-                return user;
-
-            }catch(error){
-                console.log(error);
-            }
-
-          }
-        })
-      ],
-      session: {
-        strategy: "jwt",
-      },
-      secret: process.env.NEXTAUTH_SECRET,
-      pages: {
-        signIn: "/login"
+        } catch (error) {
+          console.log(error);
+        }
       }
+    })
+  ],
+  session: {
+    strategy: "jwt",
+  },
+  secret: process.env.NEXTAUTH_SECRET,
+  pages: {
+    signIn: "/login"
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.email = user.email;
+        token.name = user.name || user._id;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      session.user.email = token.email;
+      session.user.name = token.name;
+      return session;
+    }
+  }
 }
+
 
 const handler = NextAuth(authOptions);
 export {handler as GET, handler as POST};

@@ -5,6 +5,7 @@ import Navbar from '../component/Navbar'
 import Link from  'next/link'
 import { useSession } from 'next-auth/react'
 import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation';
 
 function RegisterPage() {
 
@@ -14,6 +15,7 @@ function RegisterPage() {
     const [confirmpassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
+    const router = useRouter();
 
     const {data : session} = useSession();
     if(session) redirect('/welcome');
@@ -29,6 +31,12 @@ function RegisterPage() {
             setError("Password do not match!");
             return;
         }
+
+        if (!email.endsWith("@gmail.com")) {
+            setError("Only Gmail addresses are allowed!");
+            return;
+          }
+          
         
         try{
 
@@ -62,6 +70,7 @@ function RegisterPage() {
                 setError("");
                 setSuccess("User registration successfully!");
                 form.reset();
+                router.replace("login");
             }else{
                 console.log("User registeration failes.")
             }
@@ -75,10 +84,10 @@ function RegisterPage() {
   return (
     <div>
        <Navbar/>
-       <div className='container mx-auto py-5'>
-        <h3>Register Page</h3>
+       <div className='flex flex-col items-center min-h-screen '>
+        <h3 className='flex mx-auto mt-10 text-2xl' >Register Page</h3>
         <hr className='my-3'/>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className='flex flex-col items-center gap-3'>
 
             {error && (
                 <div className='bg-red-500 w-fit text-sm text-white py-1 px-3 rounded-md mt-2'>
