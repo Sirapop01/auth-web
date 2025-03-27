@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Auth Web
 
-## Getting Started
+โปรเจกต์นี้เป็นเว็บแอปพลิเคชันที่พัฒนาด้วย [Next.js](https://nextjs.org/) และใช้ [Tailwind CSS](https://tailwindcss.com/) สำหรับการจัดการสไตล์
 
-First, run the development server:
+## คุณสมบัติ
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **การยืนยันตัวตน**: รองรับการลงทะเบียนและเข้าสู่ระบบของผู้ใช้
+- **การจัดการผู้ใช้**: ฟีเจอร์สำหรับดูและแก้ไขข้อมูลผู้ใช้
+- **การออกแบบที่ตอบสนอง**: ใช้ Tailwind CSS เพื่อให้แน่ใจว่าเว็บแอปพลิเคชันทำงานได้ดีบนทุกอุปกรณ์
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## การติดตั้ง
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **โคลนโปรเจกต์นี้**:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+    ```bash
+    git clone https://github.com/Sirapop01/auth-web.git
+    ```
 
-## Learn More
+2. **ไปที่ไดเรกทอรีของโปรเจกต์**:
 
-To learn more about Next.js, take a look at the following resources:
+    ```bash
+    cd auth-web
+    ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. **ติดตั้งแพ็กเกจที่จำเป็น**:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+    ```bash
+    npm install
+    ```
 
-## Deploy on Vercel
+4. **สร้างไฟล์ `.env`** โดยคัดลอกจาก `.env.example` และกำหนดค่าตามความต้องการของคุณ
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+5. **เริ่มเซิร์ฟเวอร์พัฒนา**:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+    ```bash
+    npm run dev
+    ```
+
+    เปิด [http://localhost:3000](http://localhost:3000) ในเบราว์เซอร์เพื่อดูผลลัพธ์
+
+## การใช้งาน
+
+- **การลงทะเบียนผู้ใช้**: ไปที่หน้า `/register` เพื่อสร้างบัญชีใหม่
+- **การเข้าสู่ระบบ**: ไปที่หน้า `/login` และป้อนข้อมูลรับรองเพื่อเข้าสู่ระบบ
+- **การดูและแก้ไขโปรไฟล์**: หลังจากเข้าสู่ระบบแล้ว ไปที่หน้า `/profile` เพื่อดูและแก้ไขข้อมูลส่วนตัว
+
+## ภาพหน้าจอ
+
+![หน้าเข้าสู่ระบบ](screenshots/login.png)
+*หน้าเข้าสู่ระบบของแอปพลิเคชัน*
+
+![หน้าโปรไฟล์ผู้ใช้](screenshots/profile.png)
+*หน้าโปรไฟล์ผู้ใช้ที่แสดงข้อมูลและตัวเลือกการแก้ไข*
+
+## โครงสร้างไดเรกทอรี
+
+- `lib/`: โค้ดที่ใช้ร่วมกันและฟังก์ชันช่วยเหลือ
+- `models/`: โมเดลข้อมูลและฟังก์ชันที่เกี่ยวข้อง
+- `public/`: ไฟล์สาธารณะ เช่น รูปภาพและไอคอน
+- `src/app/`: คอมโพเนนต์และเพจหลักของแอปพลิเคชัน
+
+## ข้อมูลเพิ่มเติม
+
+สำหรับข้อมูลเพิ่มเติมเกี่ยวกับ Next.js และการใช้งาน สามารถดูได้ที่ [Next.js Documentation](https://nextjs.org/docs)
+
